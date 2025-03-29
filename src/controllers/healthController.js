@@ -1,6 +1,10 @@
+<<<<<<< Updated upstream
 import { HealthData } from '../models/HealthData.js';
 import Pet from '../models/Pet.js';
  // Asegúrate de importar correctamente el modelo Pet
+=======
+import { HealthData } from '../models/HealthData.js';  // Asegúrate de importar correctamente el modelo Pet
+>>>>>>> Stashed changes
 import {
   evaluarPulso,
   evaluarActividad as evaluarActividadVisual,
