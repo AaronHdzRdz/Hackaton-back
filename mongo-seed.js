@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import { User } from './models/User.js';
-import { Pet } from './models/Pet.js';
-import { HealthData } from './models/HealthData.js';
-import { GPSData } from './models/GPSData.js';
-import { FeedingLog } from './models/FeedingLog.js';
+import { User } from './src/models/Users.js';
+import {Pet} from "./src/models/Pet.js"
+import { HealthData } from './src/models/HealthData.js';
+import { GPSData } from './src/models/GPSData.js';
+import { FeedingLog } from './src/models/FeedingLog.js';
 
 dotenv.config();
 
@@ -17,12 +17,13 @@ const user = await User.create({
   passwordHash: 'fakehashedpassword123'
 });
 
-// 2. Crear tres mascotas
+// 2. Crear tres mascotas (¡agregamos "size"!)
 const pets = await Pet.insertMany([
   {
     userId: user._id,
     name: 'Milo',
     species: 'Gato',
+    size: 'Único',
     breed: 'Maine Coon',
     age: 3,
     weight: 6.2,
@@ -32,6 +33,7 @@ const pets = await Pet.insertMany([
     userId: user._id,
     name: 'Luna',
     species: 'Perro',
+    size: 'Grande',
     breed: 'Golden Retriever',
     age: 5,
     weight: 29.5,
@@ -41,6 +43,7 @@ const pets = await Pet.insertMany([
     userId: user._id,
     name: 'Simba',
     species: 'Gato',
+    size: 'Único',
     breed: 'Siamés',
     age: 2,
     weight: 4.1,
@@ -71,5 +74,5 @@ for (const pet of pets) {
   });
 }
 
-console.log('✅ Base de datos cargada con usuario y 3 mascotas');
+console.log('Base de datos cargada con usuario y 3 mascotas');
 process.exit();
