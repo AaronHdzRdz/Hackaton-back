@@ -6,14 +6,11 @@ import cors from 'cors';
 import healthRoutes from './src/routes/health.js';
 import gpsRoutes from "./src/routes/gps.js"
 import feedingRoutes from './src/routes/feeding.js'
-<<<<<<< Updated upstream
 import nutricionRoutes from './src/routes/nutricion.js'
 import alimentoRoutes from './src/routes/alimentos.js';
 import alertasRoutes from './src/routes/alertas.js';
 import historialRoutes from './src/routes/historial.js';
-=======
 import geminiRoutes from './src/gemini/gemini.js';
->>>>>>> Stashed changes
 
 
 dotenv.config();
@@ -29,14 +26,11 @@ app.use(express.json());
 app.use('/api/health', healthRoutes);
 app.use('/api/gps',gpsRoutes)
 app.use('/api/feeding',feedingRoutes)
-<<<<<<< Updated upstream
 app.use('/api/nutricion', nutricionRoutes);
 app.use('/api/alimentos', alimentoRoutes);
 app.use('/api/historial', historialRoutes);
 app.use('/api/alertas', alertasRoutes);
-=======
 app.use('/api/gemini', geminiRoutes); 
->>>>>>> Stashed changes
 
 const PORT = process.env.PORT || 5000;
 
