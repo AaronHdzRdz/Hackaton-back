@@ -1,11 +1,12 @@
 import { HealthData } from '../models/HealthData.js';
-import { Pet } from '../models/Pet.js';  // Asegúrate de importar correctamente el modelo Pet
+import Pet from '../models/Pet.js';
+ // Asegúrate de importar correctamente el modelo Pet
 import {
   evaluarPulso,
   evaluarActividad as evaluarActividadVisual,
   evaluarDistancia
 } from '../utils/evaluarSalud.js';
-import Pet from '../models/pet.js';
+
 
 // Lógica de alertas
 import {

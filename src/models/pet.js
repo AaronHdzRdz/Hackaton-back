@@ -1,17 +1,18 @@
 import mongoose from 'mongoose';
 
 const petSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  name: { type: String, required: true },
-  species: { type: String, enum: ['Perro', 'Gato'], required: true },
+  name: String,
+  species: String,
   breed: String,
-  size: { type: String, enum: ['Pequeño', 'Mediano', 'Grande', 'Único'], required: true },
-  age: Number,
+  age: Date,
   weight: Number,
-  photoUrl: String,
-  createdAt: { type: Date, default: Date.now }
+  chip: String,
+  previousConditions: String,
+  previousSurgery: String,
+  diet: String,
+  spayed: Boolean,
+  numberOfBirths: Number
 });
 
-// ✅ exportación por defecto
-const Pet = mongoose.model('Pet', petSchema);
-export default Pet;
+// ✅ Previene el OverwriteModelError:
+export default mongoose.models.Pet || mongoose.model('Pet', petSchema);
