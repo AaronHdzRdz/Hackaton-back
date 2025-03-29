@@ -1,5 +1,5 @@
-// Visualización del estado
 import { HealthData } from '../models/HealthData.js';
+import { Pet } from '../models/Pet.js';  // Asegúrate de importar correctamente el modelo Pet
 import {
   evaluarPulso,
   evaluarActividad as evaluarActividadVisual,
@@ -18,6 +18,7 @@ export const createHealthData = async (req, res) => {
   try {
     const { petId, heartRate, activityMinutes, distanceKm } = req.body;
 
+    // Crear los datos de salud para la mascota
     const data = await HealthData.create({
       petId,
       heartRate,
@@ -25,6 +26,7 @@ export const createHealthData = async (req, res) => {
       distanceKm
     });
 
+    // Llamamos a los servicios de alerta y evaluación
     await evaluarRitmoCardiaco(petId, heartRate);
     await evaluarActividadAlerta(petId, activityMinutes, distanceKm);
 
@@ -38,24 +40,32 @@ export const createHealthData = async (req, res) => {
 // Ruta usada por el frontend para analizar el estado de salud actual
 export const getHealthStatus = async (req, res) => {
   try {
-    const { petId } = req.params;
+    const { petId } = req.params;  // Obtenemos el petId desde la ruta
 
+    // Buscar la mascota con el petId proporcionado
     const pet = await Pet.findById(petId);
-    if (!pet) return res.status(404).json({ message: 'Mascota no encontrada' });
+    if (!pet) {
+      return res.status(404).json({ message: 'Mascota no encontrada' });
+    }
 
+    // Buscar los últimos datos de salud de la mascota
     const ultimo = await HealthData.findOne({ petId }).sort({ timestamp: -1 });
-    if (!ultimo) return res.status(404).json({ message: 'Sin datos de salud para esta mascota' });
+    if (!ultimo) {
+      return res.status(404).json({ message: 'Sin datos de salud para esta mascota' });
+    }
 
+    // Evaluar el estado del pulso, actividad y distancia
     const heartRateEstado = evaluarPulso(pet, ultimo.heartRate);
     const actividadEstado = evaluarActividadVisual(pet, ultimo.activityMinutes);
     const distanciaEstado = evaluarDistancia(pet, ultimo.distanceKm);
 
-    // Calcular estado general
+    // Calcular el estado general de la mascota
     const estados = [heartRateEstado, actividadEstado, distanciaEstado];
     let estadoGeneral = 'Normal';
     if (estados.includes('Peligro')) estadoGeneral = 'Peligro';
     else if (estados.includes('Advertencia')) estadoGeneral = 'Advertencia';
 
+    // Enviar la respuesta con el estado de salud de la mascota
     res.json({
       petId,
       heartRate: { value: ultimo.heartRate, estado: heartRateEstado },
@@ -68,4 +78,3 @@ export const getHealthStatus = async (req, res) => {
     res.status(500).json({ message: 'Error al obtener el estado de salud' });
   }
 };
-
