@@ -1,5 +1,12 @@
 import puppeteer from 'puppeteer';
 import fs from 'fs';
+import PDFDocument from 'pdfkit';
+
+
+const folder = './pdfs';
+if (!fs.existsSync(folder)) {
+  fs.mkdirSync(folder);
+}
 
 export const generarPdfHistorial = async (mascota, historial) => {
   return new Promise((resolve, reject) => {
