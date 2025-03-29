@@ -5,6 +5,7 @@ import {
   evaluarActividad as evaluarActividadVisual,
   evaluarDistancia
 } from '../utils/evaluarSalud.js';
+import Pet from '../models/pet.js';
 
 // Lógica de alertas
 import {
@@ -46,7 +47,7 @@ export const getHealthStatus = async (req, res) => {
     if (!ultimo) return res.status(404).json({ message: 'Sin datos de salud para esta mascota' });
 
     const heartRateEstado = evaluarPulso(pet, ultimo.heartRate);
-    const actividadEstado = evaluarActividad(pet, ultimo.activityMinutes);
+    const actividadEstado = evaluarActividadVisual(pet, ultimo.activityMinutes);
     const distanciaEstado = evaluarDistancia(pet, ultimo.distanceKm);
 
     // Calcular estado general

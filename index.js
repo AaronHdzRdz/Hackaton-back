@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-
+import petRoutes from './src/routes/pets.js';
 import healthRoutes from './src/routes/health.js';
 import gpsRoutes from "./src/routes/gps.js"
 import feedingRoutes from './src/routes/feeding.js'
@@ -31,6 +31,7 @@ app.use('/api/alimentos', alimentoRoutes);
 app.use('/api/historial', historialRoutes);
 app.use('/api/alertas', alertasRoutes);
 app.use('/api/gemini', geminiRoutes); 
+app.use('/api/pets', petRoutes);
 
 const PORT = process.env.PORT || 5000;
 

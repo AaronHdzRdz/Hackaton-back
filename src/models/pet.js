@@ -12,4 +12,6 @@ const petSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-export const Pet = mongoose.model('Pet', petSchema);
+// ✅ exportación por defecto
+const Pet = mongoose.model('Pet', petSchema);
+export default Pet;

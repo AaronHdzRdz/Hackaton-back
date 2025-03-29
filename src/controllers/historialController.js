@@ -2,7 +2,7 @@ import { HistorialClinico } from '../models/HistorialClinico.js';
 import { HealthData } from '../models/HealthData.js';
 import { FeedingLog } from '../models/FeedingLog.js';
 import mongoose from 'mongoose';
-import { Pet } from '../models/Pet.js';
+import Pet from '../models/pet.js'
 import { generarPdfHistorial } from '../services/generatePdfService.js';
 // Registrar entrada manual en historial
 export const registrarEntradaHistorial = async (req, res) => {

@@ -1,4 +1,5 @@
-import { Pet } from '../models/Pet.js';
+import Pet from '../models/pet.js'; // ✅ correcto
+
 import { Alimento } from '../models/Alimento.js';
 import { RecomendacionNutricional } from '../models/RecomendacionNutricional.js';
 import { calcularNivelActividad } from './actividadService.js';
