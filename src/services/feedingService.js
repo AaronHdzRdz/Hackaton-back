@@ -1,4 +1,6 @@
 import { FeedingLog } from '../models/FeedingLog.js';
+import mongoose from 'mongoose';
+
 
 export const crearFeeding = async (data) => {
   const log = new FeedingLog(data);
