@@ -1,7 +1,11 @@
-const express = require('express');
-const { generarRespuesta } = require('gminiController.js');
+
+
+import express from 'express';
+import { generarRespuesta } from '../controllers/geminiController.js';
 
 const router = express.Router();
+
+// Ruta correcta
 router.post('/chat', generarRespuesta);
 
-module.exports = router;
+export default router;

@@ -16,6 +16,8 @@ export const historialFeeding = async (req, res) => {
   try {
     const historial = await feedingService.obtenerHistorial(req.params.petId);
     res.json(historial);
+
+    // Comentario
   } catch (error) {
     res.status(500).json({ error: 'Error al obtener historial' });
   }
