@@ -1,4 +1,5 @@
 import * as feedingService from '../services/feedingService.js';
+import { evaluarAlimentacion } from '../services/alertaService.js';
 
 export const registrarFeeding = async (req, res) => {
   try {
@@ -33,18 +34,21 @@ export const ultimaFeeding = async (req, res) => {
 export const resumenFeeding = async (req, res) => {
   try {
     const resumen = await feedingService.obtenerResumenDiario(req.params.petId);
-    if (!resumen) {
+
+    // Validar si el resumen está vacío o no tiene datos
+    if (!resumen || resumen.length === 0 || !resumen[0] || !resumen[0].promedioRecomendado) {
       return res.json({
         totalDispensado: 0,
         vecesAlimentado: 0,
         promedioRecomendado: 0
       });
     }
-    res.json(resumen[0] || {
-      totalDispensado: 0,
-      vecesAlimentado: 0,
-      promedioRecomendado: 0
-    });
+
+    const { totalDispensado, promedioRecomendado } = resumen[0];
+
+    await evaluarAlimentacion(req.params.petId, totalDispensado, promedioRecomendado);
+
+    res.json(resumen[0]);
   } catch (error) {
     console.error('Error en resumenFeeding:', error);
     res.status(500).json({ error: 'Error al obtener resumen diario' });

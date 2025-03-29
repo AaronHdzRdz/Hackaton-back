@@ -1,10 +1,16 @@
+// Visualización del estado
 import { HealthData } from '../models/HealthData.js';
-import { Pet } from '../models/Pet.js';
 import {
   evaluarPulso,
-  evaluarActividad,
+  evaluarActividad as evaluarActividadVisual,
   evaluarDistancia
 } from '../utils/evaluarSalud.js';
+
+// Lógica de alertas
+import {
+  evaluarRitmoCardiaco,
+  evaluarActividad as evaluarActividadAlerta // 👈 este es el importante
+} from '../services/alertaService.js';
 
 // Ruta usada por el hardware para guardar nuevos datos
 export const createHealthData = async (req, res) => {
@@ -17,6 +23,9 @@ export const createHealthData = async (req, res) => {
       activityMinutes,
       distanceKm
     });
+
+    await evaluarRitmoCardiaco(petId, heartRate);
+    await evaluarActividadAlerta(petId, activityMinutes, distanceKm);
 
     res.status(201).json({ message: 'Datos de salud guardados correctamente.', data });
   } catch (err) {
@@ -58,3 +67,4 @@ export const getHealthStatus = async (req, res) => {
     res.status(500).json({ message: 'Error al obtener el estado de salud' });
   }
 };
+

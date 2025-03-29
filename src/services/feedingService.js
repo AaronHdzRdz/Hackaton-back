@@ -12,7 +12,7 @@ export const obtenerHistorial = async (petId) => {
 };
 
 export const obtenerUltimo = async (petId) => {
-  return await FeedingLog.findOne({ petId }).sort({ timestamp: -1 });
+  return await FeedxingLog.findOne({ petId }).sort({ timestamp: -1 });
 };
 
 export const obtenerResumenDiario = async (petId) => {
